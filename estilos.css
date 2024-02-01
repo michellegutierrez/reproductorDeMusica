@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:wght@400;500;600&family=Roboto:wght@300;400;500&family=Sora:wght@200;400&display=swap');
+
+main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-family: 'Roboto';
+
+}
+.listaDeCanciones{
+    width: 300px;
+    padding: 10px;
+}
+
+.listas{
+    overflow-y: scroll;
+     height:310px;
+     width:300px;
+     padding-top: 10px;
+     padding-left: 10px;
+     margin-top: 10px;
+     background-color: rgb(255, 255, 254);
+     border: 2px solid #d6d6d6;
+     border-radius: 20px;
+}
+
+.reproductor{
+    display: flex;
+    flex-direction: column;
+    
+    height:580px;
+    width:300px;
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-top: 25px;
+    background-color: rgb(255, 255, 254);
+    border: 2px solid #d6d6d6;
+    border-radius: 20px;
+}
+.reproductorBotones{
+    display: flex;
+    justify-content: center;
+}
+input{
+    border-radius: 5px;
+}

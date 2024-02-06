@@ -12,23 +12,25 @@
 <body>
    <header>
     <nav>
-    <input type="search" placeholder="Buscar"><button><i class="fa-solid fa-magnifying-glass"></i></button>
+    <input id="buscador" type="search" placeholder="Buscar"><button id="buscarBoton"><i class="fa-solid fa-magnifying-glass"></i></button>
 </nav>
     </header>
 
     <main>
         
-        <div class="listaDeCanciones">
-            <div class="listas">
-                <h2>Resultado de buscador</h2>
-                <p>Cancion 1</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></i></button></i><button><i class="fa-solid fa-plus"></i></button>
-                <p>Cancion 2</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></i></button><button><i class="fa-solid fa-plus"></i></button>
-                <p>Cancion 3</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></i></button><button><i class="fa-solid fa-plus"></i></button>
-                <p>Cancion 4</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></i></button><button><i class="fa-solid fa-plus"></i></button>
+        <div id="listaDeCanciones"class="listaDeCanciones">
+            <div class="listas" id="listaEntera">
+                    <h2  class="titulos">Resultado de buscador</h2>
+                    <div class="contenedorCancion"><p  class="remover">Cancion 1</p><button  id="reproducir" class="play remover"><i class="fa-solid fa-play"></i></button><button id="favorito"  class="remover agregarFavoritos"><i class="fa-solid fa-heart"></i></button></i><button  class="remover agregarPlaylist"><i class="fa-solid fa-plus"></i></button></div> 
+                    <div class="contenedorCancion"><p  class="remover">Cancion 2</p><button   class=" play remover"><i class="fa-solid fa-play"></i></button><button id="favorito2"  class="remover agregarFavoritos"><i class="fa-solid fa-heart"></i></button></i><button  class="remover   agregarPlaylist"><i class="fa-solid fa-plus"></i></button></div> 
+                    <div class="contenedorCancion"><p  class="remover">Cancion 3</p><button   class="play remover"><i class="fa-solid fa-play"></i></button><button id="favorito3"  class="remover agregarFavoritos"><i class="fa-solid fa-heart"></i></button></i><button  class="remover  agregarPlaylist"><i class="fa-solid fa-plus"></i></button></div> 
+                    <div class="contenedorCancion"><p  class="remover">Cancion 4</p><button   class="play remover"><i class="fa-solid fa-play"></i></button><button id="favorito4"  class="remover agregarFavoritos"><i class="fa-solid fa-heart"></i></button></i><button  class="remover  agregarPlaylist"><i class="fa-solid fa-plus"></i></button></div> 
+                    
+
             </div>
 
             <div class="listas">
-                <h2>Playlist</h2>
+                <h2 class="titulos">Mi Playlist</h2>
                 <p>Cancion 1</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></button></i><button><i class="fa-solid fa-trash"></i></button>
                 <p>Cancion 2</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></button></i><button><i class="fa-solid fa-trash"></i></button>
                 <p>Cancion 3</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></button></i><button><i class="fa-solid fa-trash"></i></button>
@@ -36,7 +38,7 @@
             </div>
 
             <div class="listas">
-                <h2>Favoritos</h2>
+                <h2 class="titulos">Favoritos</h2>
                 <p>Cancion 1</p><button><i class="fa-solid fa-play"></i><button><i class="fa-regular fa-heart"></i></button><button><i class="fa-solid fa-plus"></i></button>
                 <p>Cancion 2</p><button><i class="fa-solid fa-play"></i><button><i class="fa-regular fa-heart"></i></button><button><i class="fa-solid fa-plus"></i></button>
                 <p>Cancion 3</p><button><i class="fa-solid fa-play"></i><button><i class="fa-regular fa-heart"></i></button><button><i class="fa-solid fa-plus"></i></button>
@@ -67,6 +69,6 @@
 
 
 </main>
- <script src="main.js"></script>
+ <script defer src="main.js"></script>
 </body>
 </html>

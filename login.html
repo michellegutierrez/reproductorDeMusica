@@ -1,18 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"  href="estilos.css">
-    <title>Pagina de Login</title>
-</head>
-<body>
-    <div><input type="text">Usuario
-        <input type="password"> Constraseña
-
-        <button>Iniciar Sesion</button>
-        
-    </div>
-    <script src="main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="estilos.css" />
+  </head>
+  <body>
+    <form class="loginForm" id="loginForm">
+        <div id="title">PROYECTO REPRODUCTOR</div>
+        <div id="image"><img src="./imagenes/descarga.jpeg" alt=""></div>
+      <div class="input-icon">
+        <input
+          type="text"
+          placeholder="Username"
+          id="usernameInput" />
+        <i class="bi bi-person-fill"></i>
+      </div>
+      <div class="input-icon">
+        <input
+          type="password"
+          placeholder="Password"
+          id="passwordInput" />
+        <i class="bi bi-eye-fill" id="viewPassword"></i>
+      </div>
+      <button id="loginBtn">Login</button>
+    </form>
+    <script src="login.js"></script>
+  </body>
 </html>

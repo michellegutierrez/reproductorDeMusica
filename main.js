@@ -155,9 +155,8 @@ class   Reproductor {
 
       new Song("1","Adore you","harry","Pop", "3 minutos", "2025","./Song1Cover.png","album1","./1.mp3"),
       new Song("2","Physical","dua", "genero2", "3 minutos", "2025","./2cover.png","album1","./2.mp3"),
-      new Song("3","cancion3","autor3", "genero3", "3 minutos", "2025","./imagenes/descarga.jpeg","album1",""),
-      new Song("4","cancion4","autor4", "genero4", "3 minutos", "2025","./imagenes/descarga.jpeg","album1",""),
-      new Song("5","cancion5","autor5", "genero5", "3 minutos", "2025","./imagenes/descarga.jpeg","album1","")
+      new Song("3","cancion3","autor3", "genero3", "3 minutos", "2025","./descarga.jpeg","album1","./3.mp3"),
+      
 
     ] 
 
@@ -205,9 +204,26 @@ class   Reproductor {
   }
    }); 
 
+ let botonAdelantar = document.getElementById("foward");
+ botonAdelantar.addEventListener( "click" , () => {
+  console.log("adelante") ;
+  this.adelantar();
+ 
+ });
 
-
+ let botonRetroceder = document.getElementById( "backward" );
+ botonRetroceder.addEventListener( "click" , () => {
+  console.log("atras") ;
+  this.retroceder();
+ });
+ 
+ this.audio.addEventListener("ended", () =>{
+  this.adelantar();
+  this.play();
+  this.mostrarInfoyPortada();
+ })
 }
+
 
 
    mostrarCanciones(){
@@ -246,10 +262,64 @@ class   Reproductor {
    });
   }
 
- CancionPlay(){
+ adelantar(){
+  this.cancionActual;
+  for(let i = 0; i<this.catalogoDeCanciones.length;i++){
+    if(this.catalogoDeCanciones[i] == this.cancionActual)
+    {
+       if(this.play()){
+        this.pausar();
+       }
+        
+       else{
+        this.play();
+       }
+       
 
+       if((i+1)==this.catalogoDeCanciones.length){
+        this.cancionActual=this.catalogoDeCanciones[0];
+       }
+        
+       else{
+        this.cancionActual=this.catalogoDeCanciones[i+1];
+        this.audio.src = "/canciones/" + this.cancionActual.urlSong;
+        this.play();
+        this.mostrarInfoyPortada(this.cancionActual);
+       }
+         break;
+    }
   }
-
+  }
+  retroceder(){
+    this.cancionActual;
+    for(let i = this.catalogoDeCanciones.length - 1; i > 0;i--){
+      if(this.catalogoDeCanciones[i] == this.cancionActual && this.cancionActual !==  undefined)
+      {
+         if(this.play()){
+          this.pausar();
+         }
+          
+         else{
+          this.play();
+         }
+          
+  
+         if((i-1)==this.catalogoDeCanciones.length && this.cancionActual !==  undefined){
+          this.cancionActual=this.catalogoDeCanciones[0];
+         }
+          
+         else{
+          this.cancionActual=this.catalogoDeCanciones[i-1];
+          this.audio.src = "/canciones/" + this.cancionActual.urlSong;
+          this.play();
+          this.mostrarInfoyPortada(this.cancionActual);
+         }
+            
+            
+         break;
+      }
+    }
+  }
 
 
  stop(){
@@ -313,4 +383,4 @@ play() {
 let reproductor = new Reproductor();
 
 
-
+reproductor.mostrarCanciones();

@@ -20,6 +20,10 @@ main{
     font-family: 'Roboto';
 
 }
+#barra{
+  display: flex;
+  justify-content: space-between;
+}
 .listaDeCanciones{
     width: 300px;
     padding: 10px;

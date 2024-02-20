@@ -25,30 +25,36 @@
         
         <div id="listaDeCanciones"class="listaDeCanciones">
             <div class="listas" id="resBusqueda">
-
+                <h2 class="titulos">Todas las Canciones</h2>
 
             </div>
 
-            <div class="listas">
+            <div id="MiPLaylist" class="listas">
                 <h2 class="titulos">Mi Playlist</h2>
-                <p>Cancion 1</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></button></i><button><i class="fa-solid fa-trash"></i></button>
-                <p>Cancion 2</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></button></i><button><i class="fa-solid fa-trash"></i></button>
-                <p>Cancion 3</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></button></i><button><i class="fa-solid fa-trash"></i></button>
-                <p>Cancion 4</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></button></i><button><i class="fa-solid fa-trash"></i></button>
+                <p>Cancion Playlist</p><button><i class="fa-solid fa-play"></i></button><button><i class="fa-solid fa-heart"></button></i><button><i class="fa-solid fa-trash"></i></button>
+
             </div>
 
-            <div class="listas">
+            <div id="misFavoritos" class="listas">
                 <h2 class="titulos">Favoritos</h2>
                 <p>Cancion 1</p><button><i class="fa-solid fa-play"></i><button><i class="fa-regular fa-heart"></i></button><button><i class="fa-solid fa-plus"></i></button>
-                <p>Cancion 2</p><button><i class="fa-solid fa-play"></i><button><i class="fa-regular fa-heart"></i></button><button><i class="fa-solid fa-plus"></i></button>
-                <p>Cancion 3</p><button><i class="fa-solid fa-play"></i><button><i class="fa-regular fa-heart"></i></button><button><i class="fa-solid fa-plus"></i></button>
-                <p>Cancion 4</p><button><i class="fa-solid fa-play"></i><button><i class="fa-regular fa-heart"></i></button><button><i class="fa-solid fa-plus"></i></button>
+              
             </div>
         </div>
         <div id="reproductor">
             
-                <img id="portada" src="./imagenes/descarga.jpeg" alt="Cover de Album De Cancion">
-          
+                <img id="portada" src="../assets/imagenes/descarga.jpeg" alt="Cover de Album De Cancion">
+                <div class="reproductorBotones">
+                    <button id="mute"><i class="fa-solid fa-volume-xmark"></i></button>
+                  
+                    <button id="backward"><i class="fa-solid fa-backward"></i></button>
+                    <button id="play"><i class="fa-solid fa-play"></i></button>
+                    <button id="foward"><i class="fa-solid fa-forward"></i></button>
+                    <button id="pause"><i class="fa-solid fa-pause"></i></button>
+                    <button id="stop"><i class="fa-solid fa-stop"></i></button>
+                    
+                </div>
+    
             <div>
                 <h3 id="nombreCancion">Nombre:</h3>
                 <p id="duracion">Duración:</p>
@@ -57,15 +63,7 @@
                 <p id="year">Año:</p>
                 <p id="genero">Genero:</p>
             </div>
-            <div class="reproductorBotones">
-                <button id="backward"><i class="fa-solid fa-backward"></i></button>
-                <button id="pause"><i class="fa-solid fa-pause"></i></button>
-                <button id="play"><i class="fa-solid fa-play"></i></button>
-                <button id="foward"><i class="fa-solid fa-forward"></i></button>
-                <button id="stop"><i class="fa-solid fa-stop"></i></button>
-                 <button id="mute"><i class="fa-solid fa-volume-xmark"></i></button>
-            </div>
-
+            
         </div>
 
 

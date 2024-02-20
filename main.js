@@ -3,15 +3,15 @@
 
    class Song {
 
-    constructor(id, nombre, artista, genero, duracion, anio, cover, album, urlSong){
+    constructor(id, nombre, artista, album, anio, duracion, genero, cover, urlSong){
         this.id = id;
         this.nombre = nombre;
         this.artista = artista;
-        this.genero = genero;
-        this.duracion = duracion;
-        this.anio = anio;
-        this.cover = cover;
         this.album = album;
+        this.anio = anio;
+        this.duracion = duracion;
+        this.genero = genero;
+        this.cover = cover;
         this.urlSong= urlSong; 
         
    }
@@ -22,17 +22,19 @@
   getSongArtist(){
     return `${this.artista}`;
   }
-
-  getSongGender(){
-    return `${this.genero}`;
+ 
+  getSingAlbum(){
+    return `${this.album}`;
+  }
+  getSongYear(){
+    return `${this.anio}`;
   }
 
   getSongDuration(){
     return `${this.duracion}`;
   }
-
-  getSongYear(){
-    return `${this.anio}`;
+  getSongGenero(){
+    return `${this.genero}`;
   }
 
   getSongCover(){
@@ -46,43 +48,55 @@
 }
 
 
+
 class Playlist {
-    constructor(nombre, listaDeCanciones){
-        this.nombre = nombre;
-        this.listaDeCanciones= listaDeCanciones;
-       
-    }
-    
-    playPlayList(){
-       this.listaDeCanciones.forEach(song =>{
-        console.log(`Se esta reproduciendo: ${song.nombre}`);
-       });
-    }
+  constructor(nombre, listaDeCanciones, ordenEscucha){
+      this.nombre = nombre;
+      this.listaDeCanciones= listaDeCanciones;
+      this.ordenEscucha= ordenEscucha;  
 
-    getPlaylistName(){
-        return this.nombre + this.listaDeCanciones;
-    }
-   
-    addSongToFavorites(song){
-        return this.listaDeCanciones.push(song);
-    }
 
-    addSongToPlaylist(song){
-        return this.listaDeCanciones.push(song);
-    }
-    
-    removeSongFromFavorites(song){
-       this.listaDeCanciones.filter(cancion => cancion !== song);
-    }
 
-    removeSongFromPlaylist(song){
-        this.listaDeCanciones.filter(cancion => cancion !== song);
-     }
+  let botonAgregarPlaylist = document.getElementsByClassName("agregarPlaylist");
+  botonAgregarPlaylist.addEventListener( "click" , () => {
+    console.log("agregar") ;
+    this.addSongToPlaylist(song);
+   });
+
+
+  }
+
+
+  
+  
+  playPlayList(){
+     this.listaDeCanciones.forEach(song =>{
+      console.log(`Se esta reproduciendo: ${song.nombre}`);
+     });
+  }
+
+  getPlaylistName(){
+      return this.nombre + this.listaDeCanciones;
+  }
  
+  addSongToFavorites(song){
+      return this.listaDeCanciones.push(song);
+  }
 
+  addSongToPlaylist(song){
+      return this.listaDeCanciones.push(song);
+  }
+  
+  removeSongFromFavorites(song){
+     this.listaDeCanciones.filter(cancion => cancion !== song);
+  }
 
+  removeSongFromPlaylist(song){
+      this.listaDeCanciones.filter(cancion => cancion !== song);
+   }
+
+   
 }
-
 
 
 
@@ -98,10 +112,37 @@ class   Reproductor {
 
     this.catalogoDeCanciones = [
 
-      new Song("1","Adore you","harry","Pop", "3 minutos", "2025","./Song1Cover.png","album1","./1.mp3"),
-      new Song("2","Physical","dua", "genero2", "3 minutos", "2025","./2cover.png","album1","./2.mp3"),
-      new Song("3","Cancion3","autor3", "genero3", "3 minutos", "2025","./descarga.jpeg","album1","./3.mp3"),
-      
+
+      new Song("1","La costa del silecio","Mago de Oz","Gaia","2003","04:40:00","Rock","../assets/imagenes/cover1.jpg","../assets/audios/cancion1.mp3"),
+      new Song("2","Azul","Aztlán","Zoe","2018","03:14:00","rock alternativo","../assets/imagenes/cover2.jpg","../assets/audios/cancion2.mp3"),
+      new Song("3","I wanna be yours","Arctic Monkeys","AM","2013","03:04:00","Indie rock","../assets/imagenes/cover3.jpg","../assets/audios/cancion3.mp3"),
+      new Song("4","Love of my life","Queen","A night at the opera","1975","03:37:00","Rock","../assets/imagenes/cover4.jpg","../assets/audios/cancion4.mp3"),
+      new Song("5","Good Old-Fashioned lover boy","Queen","A day at the races","1976","02:53:00","Rock","../assets/imagenes/cover5.jpg","../assets/audios/cancion5.mp3"),
+      new Song("6","Adore you","Harry Styles","Harry's House","2022","03:13:00","Pop","../assets/imagenes/cover6.png",'../assets/audios/cancion6.mp3'),
+      new Song("7","Feel good Inc","Gorillaz","Demon days","2005","03:34:00","Rock","../assets/imagenes/cover7.jpg","../assets/audios/cancion7.mp3"),
+      new Song("8","Money","The drums","Portamento","2011","03:54:00","Surf rock","../assets/imagenes/cover8.jpg","../assets/audios/cancion8.mp3"),
+      new Song("9","Origami","The rare occaions","Big whoop","2021","02:54:00","rock alternativo, el indie pop y el post-punk","../assets/imagenes/cover9.jpg","../assets/audios/cancion9.mp3"),
+      new Song("10","Like i can","Sam Smith","In the lonely hour","2014","02:47:00","Pop","../assets/imagenes/cover10.jpg","../assets/audios/cancion10.mp3"),
+      new Song("11","Happy together","The Trutles","Happy together","1976","02:56:00","Pop rock","../assets/imagenes/cover11.jpg","../assets/audios/cancion11.mp3"),
+      new Song("12","Titanium","David Guetta, Sia","Nothing but the beat","2020","04:05:00","Pop electronica","../assets/imagenes/cover12.jpg","../assets/audios/cancion12.mp3"),
+      new Song("13","Billie Bossa Nova","Billie Eilish","Happier than ever","2021","03:17:00","Pop","../assets/imagenes/cover13.jpg","../assets/audios/cancion13.mp3"),
+      new Song("14","The loneliest","Maneskin","Teatro d'ira: Vol. I","2022","04:07:00","Rock alternativo","../assets/imagenes/cover14.jpg","../assets/audios/cancion14.mp3"),
+      new Song("15","Say yes to haven","Lana de rey","Say Yes to Heaven","2023","03:29:00","Dream pop","../assets/imagenes/cover15.jpg","../assets/audios/cancion15.mp3"),
+      new Song("16","Favorite crime","Olivia Rodrigo","SOUR","2021","02:32:00","Pop","../assets/imagenes/cover16.jpg","../assets/audios/cancion16.mp3"),
+      new Song("17","Until I Found You","Stepdhen Sanchez","Easy on my eyes","2022","02:56:00","Rock","../assets/imagenes/cover17.jpg","../assets/audios/cancion17.mp3"),
+      new Song("18","I aint worried ","OneRepublic","I aint worried","2022","02:28:00","Pop","../assets/imagenes/cover18.jpg","../assets/audios/cancion18.mp3"),
+      new Song("19","Teeth","5 seconds o summer","CALM","2020","03:26:00","Pop rock","../assets/imagenes/cover19.jpg","../assets/audios/cancion19.mp3"),
+      new Song("20","House of Memories","Panic! At The Disco","Death of bachelor","2016","03:29:00","Pop rock","../assets/imagenes/cover20.jpg","../assets/audios/cancion20.mp3"),
+      new Song("21","Counting Stars","OneRepublic","Native","2013","04:17:00","Pop rock","../assets/imagenes/cover21.jpg","../assets/audios/cancion21.mp3"),
+      new Song("22","Thats what i want","Lil Nas X","MONTERO","2021","02:24:00","Pop","../assets/imagenes/cover22.jpg","../assets/audios/cancion22.mp3"),
+      new Song("23","Kiwi","Harry Styles","Harry Styles","2017","02:56:00","Pop","../assets/imagenes/cover23.jpg","../assets/audios/cancion23.mp3"),
+      new Song("24","Run","OneRepublic","Human","2021","02:48:00","Pop","../assets/imagenes/cover24.jpg","../assets/audios/cancion24.mp3"),
+      new Song("25","Cake by the ocean","DNCE","DNCE ","2016","03:39:00","Pop","../assets/imagenes/cover25.jpg","../assets/audios/cancion25.mp3"),
+      new Song("26","Woman","Doja Cat","Planet  her","2021","03:39:00","Pop","../assets/imagenes/cover26.jpg","../assets/audios/cancion26.mp3"),
+      new Song("27","Levitating ","Dua lipa, Dababy","Future Nostalgia ","2020","03:23:00","Pop","../assets/imagenes/cover27.jpg","../assets/audios/cancion27.mp3"),
+      new Song("28","Physical","Dua lipa","Future Nostalgia ","2020","03:03:00","Pop","../assets/imagenes/cover28.jpg","../assets/audios/cancion28.mp3"),
+      new Song("29","Feel this moment","Pitbull, Christina Aguilera","Global Warming","2012","03:50:00","Pop","../assets/imagenes/cover29.jpg","../assets/audios/cancion29.mp3"),
+      new Song("30","Break My Heart","Dua lipa","Future Nostalgia ","2020","03:42:00","Pop","../assets/imagenes/cover30.jpg","../assets/audios/cancion30.mp3")
 
     ] 
 
@@ -175,7 +216,7 @@ class   Reproductor {
     let canciones = document.getElementById("resBusqueda");
     this.catalogoDeCanciones.forEach(song =>{
     
-      canciones.innerHTML += `<div class="contenedorCancion"><p id="res_${song.id}" class="remover">${song.nombre}</p><button class="playListas "><i class="fa-solid fa-play"></i></button><button id="favorito"  class="remover agregarFavoritos"><i class="fa-solid fa-heart"></i></button></i><button  class="remover agregarPlaylist"><i class="fa-solid fa-plus"></i></button></div> `
+      canciones.innerHTML += `<div class="contenedorCancion"><p id="res_${song.id}" class="remover">${song.nombre}</p><button class="playListas "><i class="fa-solid fa-play"></i></button><button id="favorito"  class="agregarFavoritos"><i class="fa-solid fa-heart"></i></button></i><button  class="agregarPlaylist"><i class="fa-solid fa-plus"></i></button></div> `
      
    });
 
@@ -225,7 +266,7 @@ class   Reproductor {
       }
 
         this.cancionActual = siguienteCancion;
-        this.audio.src = "/canciones/" + this.cancionActual.urlSong;
+        this.audio.src = "../audios/" + this.cancionActual.urlSong;
         this.audio.oncanplaythrough = () => {
             this.play();
             this.mostrarInfoyPortada(this.cancionActual);
@@ -248,7 +289,7 @@ class   Reproductor {
       }
 
         this.cancionActual = cancionPrevia;
-        this.audio.src = "/canciones/" + this.cancionActual.urlSong;
+        this.audio.src = "../audios/" + this.cancionActual.urlSong;
         this.audio.oncanplaythrough = () => {
             this.play();
             this.mostrarInfoyPortada(this.cancionActual);
@@ -277,7 +318,7 @@ class   Reproductor {
 play() {
   if (this.cancionActual) {
     if(this.cancionActual !==  undefined){
-      this.audio.src = "/canciones/" + this.cancionActual.urlSong;
+      this.audio.src = "../audios/" + this.cancionActual.urlSong;
     }
       if (this.cancionActual.currentTime >= 0) {
         this.audio.currentTime = this.cancionActual.currentTime; 

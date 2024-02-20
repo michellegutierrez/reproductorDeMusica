@@ -20,6 +20,10 @@ main{
     font-family: 'Roboto';
 
 }
+img{
+  width: 200px;
+  justify-items: center;
+}
 #barra{
   display: flex;
   justify-content: space-between;
@@ -44,7 +48,7 @@ main{
 .reproductor{
     display: flex;
     flex-direction: column;
-    
+    justify-items: center;
     height:580px;
     width:300px;
     padding-top: 10px;
@@ -56,7 +60,8 @@ main{
 }
 .reproductorBotones{
     display: flex;
-    justify-content: center;
+    margin-top: 20px;
+    margin-left: 20px;
 }
 input{
     border-radius: 5px;
@@ -123,6 +128,7 @@ input{
       transform: translateY(-50%);
       right: 1rem;
     }
-  }
+
+   
   
-  
+}

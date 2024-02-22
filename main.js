@@ -50,21 +50,27 @@
 
 
 class Playlist {
-  constructor(nombre, listaDeCanciones, ordenEscucha){
+  listaDeCanciones;
+  indiceActual;
+  constructor(nombre){
       this.nombre = nombre;
-      this.listaDeCanciones= listaDeCanciones;
-      this.ordenEscucha= ordenEscucha;  
+      this.listaDeCanciones= [];
+      this.indiceActual = 0;  
 
+       
 
-
-  let botonAgregarPlaylist = document.getElementsByClassName("agregarPlaylist");
-  botonAgregarPlaylist.addEventListener( "click" , () => {
-    console.log("agregar") ;
-    this.addSongToPlaylist(song);
-   });
-
-
+  let botonAgregarPlaylist = document.getElementsByClassName("agregarFavoritos");
+  for (let i=0; i < botonAgregarPlaylist.length; i++){
+    
+    botonAgregarPlaylist[i] .addEventListener("click", () => {
+      console.log("botonfavorito")
+      console.log(this.listaDeCanciones);
+      this.addSongToFavorites(song);
+     
+    });
   }
+
+}
 
 
   
@@ -80,7 +86,8 @@ class Playlist {
   }
  
   addSongToFavorites(song){
-      return this.listaDeCanciones.push(song);
+     this.listaDeCanciones.push(song);
+     this.mostrarCancionFavoritos();
   }
 
   addSongToPlaylist(song){
@@ -94,7 +101,15 @@ class Playlist {
   removeSongFromPlaylist(song){
       this.listaDeCanciones.filter(cancion => cancion !== song);
    }
-
+ 
+   mostrarCancionFavoritos(){
+    let canciones = document.getElementById("listaFavoritos");
+    this.catalogoDeCanciones.forEach(song =>{
+    
+      canciones.innerHTML += `<div class="contenedorCancion"><p id="res_${song.id}" class="remover">${song.nombre}</p><button><i class="fa-solid fa-play"></i><button><i class="fa-regular fa-heart"></i></button><button><i class="fa-solid fa-plus"></i></button>`
+     
+   });
+   }
    
 }
 
@@ -148,10 +163,12 @@ class   Reproductor {
 
     this.mostrarCanciones();
     this.cancionActual = this.catalogoDeCanciones[0];
-   
-  
     this.audio = new Audio();
     this.currentPlaylist ="busqueda";
+    this.listaFavoritos = new Playlist("listaFavoritos");
+    this.listaMiPlaylist= new Playlist("listaMiPLaylist");
+
+
 
     let buscar = document.getElementById("buscarBoton");
     buscar.addEventListener("click",() => {

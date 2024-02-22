@@ -3,6 +3,18 @@ const passwordInput = document.getElementById('passwordInput')
 const usernameInput = document.getElementById('usernameInput')
 const loginBtn = document.getElementById('loginBtn')
 
+
+/*function verificarLogin() {
+  if (!localStorage.getItem('isLogged')) {
+    window.location.href = '../login.html'
+  }
+}
+
+if (!localStorage.getItem('isLogged') && window.location.pathname !== '/login.html') {
+  verificarLogin();
+}
+*/
+
 viewPassword.addEventListener('click', () => {
   const actualType = passwordInput.getAttribute('type')
   if (actualType == 'password') {
@@ -10,7 +22,7 @@ viewPassword.addEventListener('click', () => {
   } else {
     passwordInput.setAttribute('type', 'password')
   }
-})
+});
 
 const users = [
   {
@@ -36,9 +48,11 @@ loginBtn.addEventListener('click', (event) => {
     localStorage.setItem('isLogged', true)
     window.location.href = '../index.html'
   }
+
   else {
     usernameInput.value = ''
     passwordInput.value = ''
+   
     alert('Wrong credentials')
   }
 })

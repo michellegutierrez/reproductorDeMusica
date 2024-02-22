@@ -307,10 +307,46 @@ class Reproductor {
   mostrarBusquedaDeCanciones(filtroDeCanciones) {
     let canciones = document.getElementById("resBusqueda");
     filtroDeCanciones.forEach(song => {
-
-      canciones.innerHTML += `<div class="contenedorCancion"><p id="res_${song.id}" class="remover">${song.nombre}</p><button class="playListas remover"><i id=""class="fa-solid fa-play"></i></button><button id="favorito"  class="remover agregarFavoritos"><i class="fa-solid fa-heart"></i></button></i><button  class="remover agregarPlaylist"><i class="fa-solid fa-plus"></i></button></div> `
+    
+      canciones.innerHTML += 
+      `
+        <div class="contenedorCancion"><p id="res_${song.id}" class="remover">${song.nombre}</p>
+        <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
+        <button class="addfav" data-idCancion="${song.id}"><i class="fa-solid fa-heart"></i></button>
+        </i><button  class="addplay" data-idCancion="${song.id}"><i class="fa-solid fa-plus"></i></button></div> `
 
     });
+    
+    let playSongs =document.getElementsByClassName ("playSong");
+    for (let i=0;i< playSongs.length; i++){
+      playSongs[i].addEventListener("click",() =>{
+        console.log("hola");
+        this.currentPlaylist ='busqueda';
+        let id =playSongs[i].getAttribute('data-idCancion');
+        debugger
+        this.cancionActual=this.catalogoDeCanciones.find(song => song.id==id);
+        this.play();
+        this.mostrarInfoyPortada();
+      })
+    }
+
+    let favoritos =document.getElementsByClassName("addfav");
+    for (let i=0;i<favoritos.length;i++){
+      favoritos[i].addEventListener ("click",()=>{
+        console.log("add favoritosss")
+        let id=favoritos[i].getAttribute('data-idCancion');
+        this.addPlaylist(id,'favoritos');
+      })
+    }
+
+    let addPlaylist =document.getElementsByClassName("addplay");
+    for (let i=0;i<addPlaylist.length;i++){
+      addPlaylist[i].addEventListener ("click",()=>{
+        console.log("add playliss")
+        let id=addPlaylist[i].getAttribute('data-idCancion');
+        this.addPlaylist(id,'myPlaylist');
+      })
+    }
   }
 
   adelantar() {

@@ -52,7 +52,8 @@ class Playlist {
   constructor(nombre) {
     this.nombre = nombre;
     this.listaCanciones=[];
-   
+   this.indiceActual = 0;
+   this.playLists()
   }
 
   addSongToPlaylist(song) {
@@ -76,12 +77,12 @@ class Playlist {
       case 'resFavoritos':
         alterna = 'fa-regular fa-heart';
         alterna2 = 'fa-solid fa-plus';
-        titulo = "Mis Favoritos"
+      
         break;
       case 'resPlaylist':
         alterna ='fa-solid fa-trash' ;
         alterna2 = 'fa-solid fa-heart';
-        titulo = "Mi Playlist"
+    
         break;
     }
     canciones.innerHTML= '';
@@ -106,7 +107,6 @@ class Playlist {
 
     for (let i = 0; i < removeSong.length; i++) {
       removeSong[i].addEventListener("click", () => {
-        console.log("Remove favoritos");
         let id = removeSong[i].getAttribute("data-idCancion");
         this.removeSongFromPlaylist(id);
       });
@@ -115,14 +115,31 @@ class Playlist {
 
   removeSongFromPlaylist(songId) {
    
-    let currentIndex = this.listaCanciones.findIndex(song => song.id === songId);
+    let removerCancionPlaylist = this.listaCanciones.findIndex(song => song.id === songId);
 
-    if (currentIndex !== -1) {
-      this.listaCanciones.splice(currentIndex, 1);
+    if (removerCancionPlaylist !== -1) {
+      this.listaCanciones.splice(removerCancionPlaylist, 1);
       this.dibujarCanciones();
     }
   }
   
+ 
+
+  playLists(){
+  let playSongs =document.getElementsByClassName ("playSong");
+  for (let i=0;i< playSongs.length; i++){
+    playSongs[i].addEventListener("click",() =>{
+      let id =playSongs[i].getAttribute('data-idCancion');
+      let cancion = this.listaCanciones.find(song => song.id == id);
+      this.indiceActual = i;
+
+      let event = new CustomEvent('playSong', {
+        detail: {song:cancion, nombre:this.nombre},
+      })
+   document.dispatchEvent(event);
+  });
+  }
+}
 
 }
 
@@ -135,7 +152,6 @@ class Reproductor {
   audio;
   currentPlaylist;
   paused;
-
   favoritos;
   myPlaylist;
 
@@ -184,7 +200,12 @@ class Reproductor {
     this.favoritos=new Playlist('resFavoritos');
     this.myPlaylist=new Playlist('resPlaylist');
  
-
+   document.addEventListener('playSong', (e) =>{
+    this.currentSong = e.detail.song;
+    this.currentPlaylist = e.detail.playLists;
+    this.lastActive = e.detail.nombre;
+    this.play();
+   })
     /* inicializar controles */
     let buscar = document.getElementById("buscarBoton");
     buscar.addEventListener("click", () => {

@@ -52,26 +52,36 @@ class Playlist {
   constructor(nombre) {
     this.nombre = nombre;
     this.listaCanciones=[];
-    
+   
   }
 
   addSongToPlaylist(song) {
     this.listaCanciones.push(song);
     this.dibujarCanciones();
   }
-
+  
+  playPlayList(){
+    this.listaDeCanciones.forEach(song => {
+      console.log(`Se esta reproduciendo: ${song.nombre}`);
+    });
+    }
+  
   dibujarCanciones() {
     let canciones = document.getElementById(this.nombre);
     let alterna = "";
     let alterna2 = "";
+    let titulo = "";
+
     switch (this.nombre) {
       case 'resFavoritos':
         alterna = 'fa-regular fa-heart';
         alterna2 = 'fa-solid fa-plus';
+        titulo = "Mis Favoritos"
         break;
       case 'resPlaylist':
         alterna ='fa-solid fa-trash' ;
         alterna2 = 'fa-solid fa-heart';
+        titulo = "Mi Playlist"
         break;
     }
     canciones.innerHTML= '';
@@ -81,10 +91,12 @@ class Playlist {
       <div class="contenedorCancion">
       <p id="res_${song.id}" class="cancion">${song.nombre}</p>
       <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
-      <button class="agregar" data-idCancion="${song.id}"><i class="${alterna}"></i></button></i>
-      <button  class="quitar" data-idCancion="${song.id}"><i class="${alterna2}"></i></button></div>
+      <button class="quitar" data-idCancion="${song.id}"><i class="${this.nombre === 'resFavoritos' ? alterna : alterna2}"></i></button>
+      <button class="quitar" data-idCancion="${song.id}"><i class="${this.nombre === 'resPlaylist' ? alterna: alterna2}"></i></button>
       `
     });
+    this.removeSong();
+    
     this.onPlay();
   }
 
@@ -106,6 +118,30 @@ class Playlist {
   }
 
 
+  
+  removeSong() {
+    let canciones = document.getElementById(this.nombre);
+    let removeSong = canciones.querySelectorAll(".quitar");
+
+
+    for (let i = 0; i < removeSong.length; i++) {
+      removeSong[i].addEventListener("click", () => {
+        console.log("Remove favoritos");
+        let id = removeSong[i].getAttribute("data-idCancion");
+        this.removeSongFromPlaylist(id);
+      });
+    }
+  }
+
+  removeSongFromPlaylist(songId) {
+   
+    let currentIndex = this.listaCanciones.findIndex(song => song.id === songId);
+
+    if (currentIndex !== -1) {
+      this.listaCanciones.splice(currentIndex, 1);
+      this.dibujarCanciones();
+    }
+
   playPlayList(){
   this.listaDeCanciones.forEach(song => {
     console.log(`Se esta reproduciendo: ${song.nombre}`);
@@ -122,8 +158,8 @@ class Playlist {
   removeSongFromPlaylist(song){
   this.listaDeCanciones.filter(cancion => cancion !== song);
   }
+  
 
-   
 }
 
 
@@ -249,14 +285,13 @@ class Reproductor {
   }
 
 
-
   mostrarCanciones() {
     let canciones = document.getElementById("resBusqueda");
     this.catalogoDeCanciones.forEach(song => {
       canciones.innerHTML += `
         <div class="contenedorCancion"><p id="res_${song.id}" class="remover">${song.nombre}</p>
         <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
-        <button class="addfav" data-idCancion="${song.id}"><i class="fa-solid fa-heart"></i></button>
+        <button class="addfav remover" data-idCancion="${song.id}"><i class="fa-solid fa-heart"></i></button>
         </i><button  class="addplay" data-idCancion="${song.id}"><i class="fa-solid fa-plus"></i></button></div> `
 
     });
@@ -314,6 +349,8 @@ class Reproductor {
       });
   }
   }
+
+  
 
   buscarCancion = function (inputUser) {
 

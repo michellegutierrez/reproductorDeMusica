@@ -91,8 +91,8 @@ class Playlist {
       <div class="contenedorCancion">
       <p id="res_${song.id}" class="cancion">${song.nombre}</p>
       <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
-      <button class="quitar" data-idCancion="${song.id}"><i class="${this.nombre === 'resFavoritos' ? alterna : alterna2}"></i></button>
-      <button class="quitar" data-idCancion="${song.id}"><i class="${this.nombre === 'resPlaylist' ? alterna: alterna2}"></i></button>
+      <button class="agregar  addPlay" data-idCancion="${song.id}"><i class="${this.nombre === 'resFavoritos' ? alterna : alterna2}"></i></button>
+      <button class="quitar addfav " data-idCancion="${song.id}"><i class="${this.nombre === 'resPlaylist' ? alterna: alterna2}"></i></button>
       `
     });
     this.removeSong();
@@ -327,6 +327,7 @@ class Reproductor {
         let id=addPlaylist[i].getAttribute('data-idCancion');
         this.addPlaylist(id,'myPlaylist');
       });
+      
   }
   }
 

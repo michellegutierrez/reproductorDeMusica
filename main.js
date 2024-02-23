@@ -86,6 +86,7 @@ class Playlist {
         break;
     }
     canciones.innerHTML= '';
+   
     this.listaCanciones.forEach(song =>{
       canciones.innerHTML += `
       <div class="contenedorCancion">
@@ -96,6 +97,25 @@ class Playlist {
       `
     });
     this.removeSong();
+    
+    this.onPlay();
+  }
+
+  onPlay(){
+    let playSongs=document.getElementsByClassName("playSong");
+    for (let i=0;i<playSongs.length;i++){
+      playSongs[i].addEventListener("click",()=>{
+        debugger
+        console.log("event1")
+        let id =playSongs[i].getAttribute('data-idCancion');
+        let cancion=this.listaCanciones.find(song =>song.id==id);
+
+        let event=new CustomEvent('playSong',{
+          detail:{song:cancion},
+        });
+        document.dispatchEvent(event);
+      });
+    }
   }
 
 
@@ -121,6 +141,19 @@ class Playlist {
       this.listaCanciones.splice(removerCancionPlaylist, 1);
       this.dibujarCanciones();
     }
+
+    
+  }
+
+
+
+
+  removeSongFromFavorites(song){
+  this.listaDeCanciones.filter(cancion => cancion !== song);
+  }
+
+  removeSongFromPlaylist(song){
+  this.listaDeCanciones.filter(cancion => cancion !== song);
   }
   
  
@@ -199,6 +232,14 @@ class Reproductor {
     this.currentPlaylist = "busqueda";
     this.favoritos=new Playlist('resFavoritos');
     this.myPlaylist=new Playlist('resPlaylist');
+
+    document.addEventListener('playSong',(e)=>{
+      console.log("evento")
+      this.cancionActual=e.detail.song;
+      this.play();
+      this.mostrarInfoyPortada();
+    });
+
  
    document.addEventListener('playSong', (e) =>{
     this.currentSong = e.detail.song;

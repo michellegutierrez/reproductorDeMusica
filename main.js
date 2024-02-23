@@ -67,40 +67,41 @@ class Playlist {
     });
     }
   
-  dibujarCanciones() {
-    let canciones = document.getElementById(this.nombre);
-    let alterna = "";
-    let alterna2 = "";
-    let titulo = "";
-
-    switch (this.nombre) {
-      case 'resFavoritos':
-        alterna = 'fa-regular fa-heart';
-        alterna2 = 'fa-solid fa-plus';
+  
+    dibujarCanciones() {
+      let canciones = document.getElementById(this.nombre);
+      let alterna = "";
+      let alterna2 = "";
+      let titulo = "";
+  
+      switch (this.nombre) {
+        case 'resFavoritos':
+          alterna = 'fa-solid fa-plus';
+          alterna2 = 'fa-regular fa-heart'; 
+        
+          break;
+        case 'resPlaylist':
+          alterna ='fa-solid fa-trash' ;
+          alterna2 = 'fa-solid fa-heart';
       
-        break;
-      case 'resPlaylist':
-        alterna ='fa-solid fa-trash' ;
-        alterna2 = 'fa-solid fa-heart';
-    
-        break;
+          break;
+      }
+      canciones.innerHTML= '';
+     
+      this.listaCanciones.forEach(song =>{
+        canciones.innerHTML += `
+        <div class="contenedorCancion">
+        <p id="res_${song.id}" class="cancion">${song.nombre}</p>
+        <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
+        <button class="agregar  addPlay" data-idCancion="${song.id}"><i class="${this.nombre === 'resFavoritos' ? alterna : alterna2}"></i></button>
+        <button class="quitar addfav " data-idCancion="${song.id}"><i class="${this.nombre === 'resPlaylist' ? alterna: alterna2}"></i></button>
+        `
+      });
+      this.removeSong();
+      
+      this.onPlay();
     }
-    canciones.innerHTML= '';
    
-    this.listaCanciones.forEach(song =>{
-      canciones.innerHTML += `
-      <div class="contenedorCancion">
-      <p id="res_${song.id}" class="cancion">${song.nombre}</p>
-      <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
-      <button class="agregar  addPlay" data-idCancion="${song.id}"><i class="${this.nombre === 'resFavoritos' ? alterna : alterna2}"></i></button>
-      <button class="quitar addfav " data-idCancion="${song.id}"><i class="${this.nombre === 'resPlaylist' ? alterna: alterna2}"></i></button>
-      `
-    });
-    this.removeSong();
-    
-    this.onPlay();
-  }
-
   onPlay(){
     let playSongs=document.getElementsByClassName("playSong");
     for (let i=0;i<playSongs.length;i++){
@@ -120,6 +121,7 @@ class Playlist {
 
 
   
+ 
   removeSong() {
     let canciones = document.getElementById(this.nombre);
     let removeSong = canciones.querySelectorAll(".quitar");
@@ -141,22 +143,8 @@ class Playlist {
       this.listaCanciones.splice(removerCancionPlaylist, 1);
       this.dibujarCanciones();
     }
-
-    
-  }
-
-
-
-
-  removeSongFromFavorites(song){
-  this.listaDeCanciones.filter(cancion => cancion !== song);
-  }
-
-  removeSongFromPlaylist(song){
-  this.listaDeCanciones.filter(cancion => cancion !== song);
   }
   
- 
 
   playLists(){
   let playSongs =document.getElementsByClassName ("playSong");
@@ -175,6 +163,8 @@ class Playlist {
 }
 
 }
+
+
 
 
 

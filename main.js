@@ -74,14 +74,13 @@ class Playlist {
         alterna2 = 'fa-solid fa-heart';
         break;
     }
-    canciones.innerHTML='';
+    canciones.innerHTML= '';
     this.listaCanciones.forEach(song =>{
       canciones.innerHTML += `
       <div class="contenedorCancion">
-      <p id="res_${song.id}" class="namesong">${song.nombre}</p>
-      <button class="playSong " data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
-      <button class="agregar" data-idCancion="${song.id}"><i class="${alterna}"></i></button>
-      </i>
+      <p id="res_${song.id}" class="cancion">${song.nombre}</p>
+      <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
+      <button class="agregar" data-idCancion="${song.id}"><i class="${alterna}"></i></button></i>
       <button  class="quitar" data-idCancion="${song.id}"><i class="${alterna2}"></i></button></div>
       `
     })
@@ -250,28 +249,14 @@ class Reproductor {
       })
     }
 
-    let favoritos =document.getElementsByClassName("addfav");
-    for (let i=0;i<favoritos.length;i++){
-      favoritos[i].addEventListener ("click",()=>{
-        console.log("add favoritosss")
-        let id=favoritos[i].getAttribute('data-idCancion');
-        this.addPlaylist(id,'favoritos');
-      })
-    }
 
-    let addPlaylist =document.getElementsByClassName("addplay");
-    for (let i=0;i<addPlaylist.length;i++){
-      addPlaylist[i].addEventListener ("click",()=>{
-        console.log("add playliss")
-        let id=addPlaylist[i].getAttribute('data-idCancion');
-        this.addPlaylist(id,'myPlaylist');
-      })
-    }
-  
+    this.addFavoritos();
+    this.addToMyPlaylist();
+   
   }
   addPlaylist = function(id,playlist){
-    let cancion=this.catalogoDeCanciones.find(song=>song.id==id);
-    debugger
+    let cancion=this.catalogoDeCanciones.find(song=> song.id == id);
+   
     switch(playlist){
       case 'favoritos':
         this.favoritos.addSongToPlaylist(cancion);
@@ -283,6 +268,27 @@ class Reproductor {
     }
   }
 
+
+  addFavoritos(){
+    let favoritos =document.getElementsByClassName("addfav");
+    for (let i=0;i<favoritos.length;i++){
+      favoritos[i].addEventListener ("click",()=>{
+        console.log("add favoritosss")
+        let id=favoritos[i].getAttribute('data-idCancion');
+        this.addPlaylist(id,'favoritos');
+      })
+    }
+  }
+  addToMyPlaylist(){
+    let addPlaylist =document.getElementsByClassName("addplay");
+    for (let i=0;i<addPlaylist.length;i++){
+      addPlaylist[i].addEventListener ("click",()=>{
+        console.log("add playliss")
+        let id=addPlaylist[i].getAttribute('data-idCancion');
+        this.addPlaylist(id,'myPlaylist');
+      });
+  }
+  }
 
   buscarCancion = function (inputUser) {
 
@@ -330,24 +336,11 @@ class Reproductor {
       })
     }
 
-    let favoritos =document.getElementsByClassName("addfav");
-    for (let i=0;i<favoritos.length;i++){
-      favoritos[i].addEventListener ("click",()=>{
-        console.log("add favoritosss")
-        let id=favoritos[i].getAttribute('data-idCancion');
-        this.addPlaylist(id,'favoritos');
-      })
-    }
-
-    let addPlaylist =document.getElementsByClassName("addplay");
-    for (let i=0;i<addPlaylist.length;i++){
-      addPlaylist[i].addEventListener ("click",()=>{
-        console.log("add playliss")
-        let id=addPlaylist[i].getAttribute('data-idCancion');
-        this.addPlaylist(id,'myPlaylist');
-      })
-    }
-  }
+   
+    this.addFavoritos();
+    this.addToMyPlaylist();
+    
+}
 
   adelantar() {
     const cancionId = this.catalogoDeCanciones.findIndex(song => song === this.cancionActual);

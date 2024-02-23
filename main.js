@@ -85,7 +85,7 @@ class Playlist {
         break;
     }
     canciones.innerHTML= '';
-    debugger
+   
     this.listaCanciones.forEach(song =>{
       canciones.innerHTML += `
       <div class="contenedorCancion">
@@ -142,10 +142,7 @@ class Playlist {
       this.dibujarCanciones();
     }
 
-  playPlayList(){
-  this.listaDeCanciones.forEach(song => {
-    console.log(`Se esta reproduciendo: ${song.nombre}`);
-  });
+    
   }
 
 
@@ -224,6 +221,7 @@ class Reproductor {
       console.log("evento")
       this.cancionActual=e.detail.song;
       this.play();
+      this.mostrarInfoyPortada();
     });
 
     /* inicializar controles */

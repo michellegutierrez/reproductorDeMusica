@@ -75,8 +75,8 @@ class Playlist {
 
     switch (this.nombre) {
       case 'resFavoritos':
-        alterna = 'fa-regular fa-heart';
-        alterna2 = 'fa-solid fa-plus';
+        alterna = 'fa-solid fa-plus';
+        alterna2 = 'fa-regular fa-heart'; 
       
         break;
       case 'resPlaylist':
@@ -119,7 +119,6 @@ class Playlist {
   }
 
 
-  
   removeSong() {
     let canciones = document.getElementById(this.nombre);
     let removeSong = canciones.querySelectorAll(".quitar");
@@ -141,22 +140,8 @@ class Playlist {
       this.listaCanciones.splice(removerCancionPlaylist, 1);
       this.dibujarCanciones();
     }
-
-    
-  }
-
-
-
-
-  removeSongFromFavorites(song){
-  this.listaDeCanciones.filter(cancion => cancion !== song);
-  }
-
-  removeSongFromPlaylist(song){
-  this.listaDeCanciones.filter(cancion => cancion !== song);
   }
   
- 
 
   playLists(){
   let playSongs =document.getElementsByClassName ("playSong");
@@ -475,7 +460,6 @@ class Reproductor {
 
 
   stop() {
-
 
     this.cancionActual.currentTime = this.audio.currentTime = 0;
     this.audio.pause();

@@ -1,4 +1,4 @@
-//Hola
+ //Hola
 class Song {
 
   constructor(id, nombre, artista, album, anio, duracion, genero, cover, urlSong) {
@@ -49,11 +49,12 @@ class Song {
 
 class Playlist {
   listaCanciones;
+  indiceActual;
   constructor(nombre) {
     this.nombre = nombre;
     this.listaCanciones=[];
    this.indiceActual = 0;
-   this.playLists()
+    this.onPlay();
   }
 
   addSongToPlaylist(song) {
@@ -61,17 +62,35 @@ class Playlist {
     this.dibujarCanciones();
   }
   
-  playPlayList(){
-    this.listaDeCanciones.forEach(song => {
-      console.log(`Se esta reproduciendo: ${song.nombre}`);
-    });
+  removeSong() {
+    let canciones = document.getElementById(this.nombre);
+    let removeSong = canciones.querySelectorAll(".quitar");
+
+
+    for (let i = 0; i < removeSong.length; i++) {
+      removeSong[i].addEventListener("click", () => {
+        let id = removeSong[i].getAttribute("data-idCancion");
+        this.removeSongFromPlaylist(id);
+      });
     }
+  }
+
+  removeSongFromPlaylist(songId) {
+   
+    let removerCancionPlaylist = this.listaCanciones.findIndex(song => song.id === songId);
+
+    if (removerCancionPlaylist !== -1) {
+      this.listaCanciones.splice(removerCancionPlaylist, 1);
+      this.dibujarCanciones();
+    }
+  }
+  
+  
   
   dibujarCanciones() {
     let canciones = document.getElementById(this.nombre);
     let alterna = "";
     let alterna2 = "";
-    let titulo = "";
 
     switch (this.nombre) {
       case 'resFavoritos':
@@ -105,13 +124,12 @@ class Playlist {
     let playSongs=document.getElementsByClassName("playSong");
     for (let i=0;i<playSongs.length;i++){
       playSongs[i].addEventListener("click",()=>{
-        debugger
-        console.log("event1")
         let id =playSongs[i].getAttribute('data-idCancion');
-        let cancion=this.listaCanciones.find(song =>song.id==id);
+      let cancion = this.listaCanciones.find(song => song.id == id);
+      this.indiceActual = i;
 
-        let event=new CustomEvent('playSong',{
-          detail:{song:cancion},
+        let event = new CustomEvent('playSong', {
+          detail: {song:cancion, nombre:this.nombre},
         });
         document.dispatchEvent(event);
       });
@@ -119,29 +137,7 @@ class Playlist {
   }
 
 
-  removeSong() {
-    let canciones = document.getElementById(this.nombre);
-    let removeSong = canciones.querySelectorAll(".quitar");
-
-
-    for (let i = 0; i < removeSong.length; i++) {
-      removeSong[i].addEventListener("click", () => {
-        let id = removeSong[i].getAttribute("data-idCancion");
-        this.removeSongFromPlaylist(id);
-      });
-    }
-  }
-
-  removeSongFromPlaylist(songId) {
-   
-    let removerCancionPlaylist = this.listaCanciones.findIndex(song => song.id === songId);
-
-    if (removerCancionPlaylist !== -1) {
-      this.listaCanciones.splice(removerCancionPlaylist, 1);
-      this.dibujarCanciones();
-    }
-  }
-  
+ 
 
   playLists(){
   let playSongs =document.getElementsByClassName ("playSong");
@@ -153,7 +149,7 @@ class Playlist {
 
       let event = new CustomEvent('playSong', {
         detail: {song:cancion, nombre:this.nombre},
-      })
+      });
    document.dispatchEvent(event);
   });
   }
@@ -172,6 +168,7 @@ class Reproductor {
   paused;
   favoritos;
   myPlaylist;
+  currentTime = 0;
 
   constructor() {
 
@@ -218,20 +215,27 @@ class Reproductor {
     this.favoritos=new Playlist('resFavoritos');
     this.myPlaylist=new Playlist('resPlaylist');
 
+
     document.addEventListener('playSong',(e)=>{
       console.log("evento")
       this.cancionActual=e.detail.song;
+      this.currentPlaylist = e.detail.onPlay;
       this.play();
       this.mostrarInfoyPortada();
-    });
-
+    })
  
-   document.addEventListener('playSong', (e) =>{
+ 
+   /*document.addEventListener('playSong', (e) =>{
     this.currentSong = e.detail.song;
-    this.currentPlaylist = e.detail.playLists;
-    this.lastActive = e.detail.nombre;
-    this.play();
-   })
+    this.currentPlaylist = e.detail.onPlay;
+    this.audio.oncanplaythrough = () => {
+      this.play();
+      this.mostrarInfoyPortada(this.cancionActual);
+      this.audio.oncanplaythrough = null;
+    };
+   
+   })*/
+
     /* inicializar controles */
     let buscar = document.getElementById("buscarBoton");
     buscar.addEventListener("click", () => {
@@ -290,7 +294,17 @@ class Reproductor {
     })
   }
 
-
+  agregarListenerPlaySong() {
+    let playSongs = document.querySelectorAll(".playSong");
+    playSongs.forEach(playSong => {
+      playSong.addEventListener("click", () => {
+        let id = playSong.getAttribute("data-idCancion");
+        this.cancionActual = this.catalogoDeCanciones.find(song => song.id === id);
+        this.play();
+        this.mostrarInfoyPortada();
+      });
+    });
+  }
   mostrarCanciones() {
     let canciones = document.getElementById("resBusqueda");
     this.catalogoDeCanciones.forEach(song => {
@@ -302,20 +316,7 @@ class Reproductor {
 
     });
 
-    let playSongs =document.getElementsByClassName ("playSong");
-    for (let i=0;i< playSongs.length; i++){
-      playSongs[i].addEventListener("click",() =>{
-        console.log("hola");
-        this.currentPlaylist ='busqueda';
-        let id =playSongs[i].getAttribute('data-idCancion');
-        debugger
-        this.cancionActual=this.catalogoDeCanciones.find(song => song.id==id);
-        this.play();
-        this.mostrarInfoyPortada();
-      })
-    }
-
-
+    this.agregarListenerPlaySong();
     this.addFavoritos();
     this.addToMyPlaylist();
    
@@ -392,20 +393,7 @@ class Reproductor {
 
     });
     
-    let playSongs =document.getElementsByClassName ("playSong");
-    for (let i=0;i< playSongs.length; i++){
-      playSongs[i].addEventListener("click",() =>{
-        console.log("hola");
-        this.currentPlaylist ='busqueda';
-        let id =playSongs[i].getAttribute('data-idCancion');
-        debugger
-        this.cancionActual=this.catalogoDeCanciones.find(song => song.id==id);
-        this.play();
-        this.mostrarInfoyPortada();
-      })
-    }
-
-   
+    this.agregarListenerPlaySong();
     this.addFavoritos();
     this.addToMyPlaylist();
     
@@ -487,7 +475,7 @@ class Reproductor {
 
 
       this.audio.play();
-      this.audio.paused = true;
+     
     }
   }
 

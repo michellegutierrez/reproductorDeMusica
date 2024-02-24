@@ -91,6 +91,7 @@ class Playlist {
     let canciones = document.getElementById(this.nombre);
     let alterna = "";
     let alterna2 = "";
+    let titulo = "";
 
     switch (this.nombre) {
       case 'resFavoritos':
@@ -137,7 +138,29 @@ class Playlist {
   }
 
 
- 
+  removeSong() {
+    let canciones = document.getElementById(this.nombre);
+    let removeSong = canciones.querySelectorAll(".quitar");
+
+
+    for (let i = 0; i < removeSong.length; i++) {
+      removeSong[i].addEventListener("click", () => {
+        let id = removeSong[i].getAttribute("data-idCancion");
+        this.removeSongFromPlaylist(id);
+      });
+    }
+  }
+
+  removeSongFromPlaylist(songId) {
+   
+    let removerCancionPlaylist = this.listaCanciones.findIndex(song => song.id === songId);
+
+    if (removerCancionPlaylist !== -1) {
+      this.listaCanciones.splice(removerCancionPlaylist, 1);
+      this.dibujarCanciones();
+    }
+  }
+  
 
   playLists(){
   let playSongs =document.getElementsByClassName ("playSong");
@@ -156,6 +179,8 @@ class Playlist {
 }
 
 }
+
+
 
 
 
@@ -448,6 +473,7 @@ class Reproductor {
 
 
   stop() {
+
 
     this.cancionActual.currentTime = this.audio.currentTime = 0;
     this.audio.pause();

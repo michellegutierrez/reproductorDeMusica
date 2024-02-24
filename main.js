@@ -1,5 +1,5 @@
  //Hola
-class Song {
+ class Song {
 
   constructor(id, nombre, artista, album, anio, duracion, genero, cover, urlSong) {
     this.id = id;
@@ -87,40 +87,41 @@ class Playlist {
   
   
   
-  dibujarCanciones() {
-    let canciones = document.getElementById(this.nombre);
-    let alterna = "";
-    let alterna2 = "";
-    let titulo = "";
-
-    switch (this.nombre) {
-      case 'resFavoritos':
-        alterna = 'fa-solid fa-plus';
-        alterna2 = 'fa-regular fa-heart'; 
+  
+    dibujarCanciones() {
+      let canciones = document.getElementById(this.nombre);
+      let alterna = "";
+      let alterna2 = "";
+      let titulo = "";
+  
+      switch (this.nombre) {
+        case 'resFavoritos':
+          alterna = 'fa-solid fa-plus';
+          alterna2 = 'fa-regular fa-heart'; 
+        
+          break;
+        case 'resPlaylist':
+          alterna ='fa-solid fa-trash' ;
+          alterna2 = 'fa-solid fa-heart';
       
-        break;
-      case 'resPlaylist':
-        alterna ='fa-solid fa-trash' ;
-        alterna2 = 'fa-solid fa-heart';
-    
-        break;
+          break;
+      }
+      canciones.innerHTML= '';
+     
+      this.listaCanciones.forEach(song =>{
+        canciones.innerHTML += `
+        <div class="contenedorCancion">
+        <p id="res_${song.id}" class="cancion">${song.nombre}</p>
+        <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
+        <button class="agregar  addPlay" data-idCancion="${song.id}"><i class="${this.nombre === 'resFavoritos' ? alterna : alterna2}"></i></button>
+        <button class="quitar addfav " data-idCancion="${song.id}"><i class="${this.nombre === 'resPlaylist' ? alterna: alterna2}"></i></button>
+        `
+      });
+      this.removeSong();
+      
+      this.onPlay();
     }
-    canciones.innerHTML= '';
    
-    this.listaCanciones.forEach(song =>{
-      canciones.innerHTML += `
-      <div class="contenedorCancion">
-      <p id="res_${song.id}" class="cancion">${song.nombre}</p>
-      <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
-      <button class="agregar  addPlay" data-idCancion="${song.id}"><i class="${this.nombre === 'resFavoritos' ? alterna : alterna2}"></i></button>
-      <button class="quitar addfav " data-idCancion="${song.id}"><i class="${this.nombre === 'resPlaylist' ? alterna: alterna2}"></i></button>
-      `
-    });
-    this.removeSong();
-    
-    this.onPlay();
-  }
-
   onPlay(){
     let playSongs=document.getElementsByClassName("playSong");
     for (let i=0;i<playSongs.length;i++){
@@ -138,6 +139,8 @@ class Playlist {
   }
 
 
+  
+ 
   removeSong() {
     let canciones = document.getElementById(this.nombre);
     let removeSong = canciones.querySelectorAll(".quitar");
@@ -177,6 +180,7 @@ class Playlist {
   });
   }
 }
+
 
 }
 
@@ -240,11 +244,11 @@ class Reproductor {
     this.favoritos=new Playlist('resFavoritos');
     this.myPlaylist=new Playlist('resPlaylist');
 
-
+ 
     document.addEventListener('playSong',(e)=>{
       console.log("evento")
       this.cancionActual=e.detail.song;
-      this.currentPlaylist = e.detail.onPlay;
+      this.currentPlaylist=e.detail.song;
       this.play();
       this.mostrarInfoyPortada();
     })
@@ -320,7 +324,7 @@ class Reproductor {
   }
 
   agregarListenerPlaySong() {
-    let playSongs = document.querySelectorAll(".playSong");
+    let playSongs = document.querySelectorAll(".playB");
     playSongs.forEach(playSong => {
       playSong.addEventListener("click", () => {
         let id = playSong.getAttribute("data-idCancion");
@@ -335,7 +339,7 @@ class Reproductor {
     this.catalogoDeCanciones.forEach(song => {
       canciones.innerHTML += `
         <div class="contenedorCancion"><p id="res_${song.id}" class="remover">${song.nombre}</p>
-        <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
+        <button class="playB" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
         <button class="addfav remover" data-idCancion="${song.id}"><i class="fa-solid fa-heart"></i></button>
         </i><button  class="addplay" data-idCancion="${song.id}"><i class="fa-solid fa-plus"></i></button></div> `
 
@@ -412,7 +416,7 @@ class Reproductor {
       canciones.innerHTML += 
       `
         <div class="contenedorCancion"><p id="res_${song.id}" class="remover">${song.nombre}</p>
-        <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
+        <button class="playB" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
         <button class="addfav" data-idCancion="${song.id}"><i class="fa-solid fa-heart"></i></button>
         </i><button  class="addplay" data-idCancion="${song.id}"><i class="fa-solid fa-plus"></i></button></div> `
 

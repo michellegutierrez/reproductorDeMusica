@@ -85,41 +85,46 @@ class Playlist {
     }
   }
   
-  
-  
-  
     dibujarCanciones() {
       let canciones = document.getElementById(this.nombre);
       let alterna = "";
       let alterna2 = "";
+      let alterna3="";
+      let alterna4=""
       let titulo = "";
   
       switch (this.nombre) {
         case 'resFavoritos':
           alterna = 'fa-solid fa-plus';
           alterna2 = 'fa-regular fa-heart'; 
+          alterna3='myPlaylist';
+          alterna4='addfav'
         
           break;
         case 'resPlaylist':
           alterna ='fa-solid fa-trash' ;
           alterna2 = 'fa-solid fa-heart';
+          alterna3='favoritos';
+          alterna4='addplay'
       
           break;
       }
       canciones.innerHTML= '';
-     
+  
       this.listaCanciones.forEach(song =>{
         canciones.innerHTML += `
         <div class="contenedorCancion">
         <p id="res_${song.id}" class="cancion">${song.nombre}</p>
         <button class="playSong" data-idCancion="${song.id}"><i class="fa-solid fa-play"></i></button>
-        <button class="agregar  addPlay" data-idCancion="${song.id}"><i class="${this.nombre === 'resFavoritos' ? alterna : alterna2}"></i></button>
-        <button class="quitar addfav " data-idCancion="${song.id}"><i class="${this.nombre === 'resPlaylist' ? alterna: alterna2}"></i></button>
+        <button class="agregar" onclick="reproductor.addPlaylist(${song.id},'${alterna3}')" data-idCancion="${song.id}"><i class="${this.nombre === 'resFavoritos' ? alterna : alterna2}"></i></button>
+        <button class="quitar " data-idCancion="${song.id}"><i class="${this.nombre === 'resPlaylist' ? alterna: alterna2}"></i></button>
         `
       });
+
       this.removeSong();
-      
       this.onPlay();
+
+      
     }
    
   onPlay(){
@@ -127,18 +132,17 @@ class Playlist {
     for (let i=0;i<playSongs.length;i++){
       playSongs[i].addEventListener("click",()=>{
         let id =playSongs[i].getAttribute('data-idCancion');
-      let cancion = this.listaCanciones.find(song => song.id == id);
-      this.indiceActual = i;
-
+        let cancion = this.listaCanciones.find(song => song.id == id);
+        this.indiceActual = i;
+                
         let event = new CustomEvent('playSong', {
-          detail: {song:cancion, nombre:this.nombre},
+        detail: {song:cancion, nombre:this.nombre},
         });
         document.dispatchEvent(event);
       });
     }
   }
-
-
+  
   
  
   removeSong() {
@@ -183,10 +187,6 @@ class Playlist {
 
 
 }
-
-
-
-
 
 
 class Reproductor {
@@ -252,18 +252,7 @@ class Reproductor {
       this.play();
       this.mostrarInfoyPortada();
     })
- 
- 
-   /*document.addEventListener('playSong', (e) =>{
-    this.currentSong = e.detail.song;
-    this.currentPlaylist = e.detail.onPlay;
-    this.audio.oncanplaythrough = () => {
-      this.play();
-      this.mostrarInfoyPortada(this.cancionActual);
-      this.audio.oncanplaythrough = null;
-    };
-   
-   })*/
+
 
     /* inicializar controles */
     let buscar = document.getElementById("buscarBoton");
@@ -352,10 +341,10 @@ class Reproductor {
   }
   addPlaylist = function(id,playlist){
     let cancion=this.catalogoDeCanciones.find(song=> song.id == id);
-   
-    switch(playlist){
+      switch(playlist){
       case 'favoritos':
-        this.favoritos.addSongToPlaylist(cancion);
+         this.favoritos.addSongToPlaylist(cancion);
+     
         break;
       case 'myPlaylist':
         this.myPlaylist.addSongToPlaylist(cancion);
@@ -509,8 +498,6 @@ class Reproductor {
     }
   }
 
-
-
   mostrarInfoyPortada = function () {
     const portada = document.getElementById("portada");
     const cancionInfoNombre = document.getElementById("nombreCancion")
@@ -532,7 +519,6 @@ class Reproductor {
 
   }
 }
-
 
 let reproductor = new Reproductor();
 
